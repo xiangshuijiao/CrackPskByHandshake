@@ -54,20 +54,41 @@ int main(char argc, char** argv)
 
 
 	FILE *fp;
+    FILE *key_file;
 	char str[256];
 	long count = 0;
 	if((fp=fopen(argv[1], "r")) == NULL){
 		printf("cannot open file %s\n", argv[1]);
 		exit(1);
 	}
+
+
+
+
 	while(!feof(fp)){
 		if(fgets(str, sizeof(str), fp) != NULL){
 			count++;
 			str[strlen(str)-2] = '\0';
 			if (1 == wpa2break_is_password(&t_handshake,(uint8_t*)str, strlen(str))){
 				printf("count = %ld\n", count);
-
 				printf("KEY FOUND! [ %s ]\n", str);
+
+                // open file
+                while(1){
+                    if ((key_file = fopen("./key.txt", "w+")) == NULL){
+                        printf("error open key.txt\n");
+                        fclose(key_file);
+                        continue;
+                    }
+                    break;
+                }
+
+                fprintf(key_file, "%ld\n", count);
+                fprintf(key_file, "success\n");
+                fprintf(key_file, "%s", str);
+                fflush(key_file);
+                fclose(key_file);	                
+
 				return 0;	
 			}
 			
@@ -77,5 +98,21 @@ int main(char argc, char** argv)
 	}
     printf("count = %ld\n", count);
 	printf("KEY NOT FOUND!\n");
+
+
+    // open file
+    while(1){
+        if ((key_file = fopen("./key.txt", "w+")) == NULL){
+            printf("error open key.txt\n");
+            fclose(key_file);
+            continue;
+        }
+        break;
+    }
+
+    fprintf(key_file, "%ld\n", count);
+    fprintf(key_file, "failed");
+    fflush(key_file);
+    fclose(key_file);	 
     return 0;
 }
