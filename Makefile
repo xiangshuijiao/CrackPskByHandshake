@@ -1,5 +1,5 @@
 main: main.o hmac_sha1.o fastpbkdf2.o wpa2break.o
-	gcc main.o hmac_sha1.o fastpbkdf2.o wpa2break.o -lcrypto -o main
+	gcc main.o hmac_sha1.o fastpbkdf2.o wpa2break.o -lcrypto -o crack
 
 main.o: main.c
 	gcc -c main.c -o main.o
