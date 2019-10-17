@@ -106,7 +106,21 @@ int main(char argc, char** argv)
                 fprintf(key_file, "%s", str);
                 fflush(key_file);
                 fclose(key_file);	
-                printf("\n%lf second\n", (clock() - time_start) * 1.0 / CLOCKS_PER_SEC);                
+                printf("\n%lf second\n", (clock() - time_start) * 1.0 / CLOCKS_PER_SEC);        
+
+                
+                // open file
+                while(1){
+                    if ((key_file = fopen("./show2.txt", "w+")) == NULL){
+                        printf("error open show2.txt\n");
+                        fclose(key_file);
+                        continue;
+                    }
+                    break;
+                }
+                fprintf(key_file, "%ld\n", count);
+                fflush(key_file);
+                fclose(key_file);                           
 
 				return 0;	
 			}
