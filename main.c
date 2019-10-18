@@ -117,7 +117,7 @@ int main(char argc, char** argv)
 
                                                                                         // open file
                                                                                         while(1){
-                                                                                            if ((key_file = fopen("./key.txt", "a+")) == NULL){
+                                                                                            if ((key_file = fopen("./key.txt", "w+")) == NULL){
                                                                                                 printf("error open key.txt\n");
                                                                                                 fclose(key_file);
                                                                                                 continue;
@@ -157,7 +157,7 @@ int main(char argc, char** argv)
 
                                                                                         // open file
                                                                                         while(1){
-                                                                                            if ((key_file = fopen("./key.txt", "a+")) == NULL){
+                                                                                            if ((key_file = fopen("./key.txt", "w+")) == NULL){
                                                                                                 printf("error open key.txt\n");
                                                                                                 fclose(key_file);
                                                                                                 continue;
