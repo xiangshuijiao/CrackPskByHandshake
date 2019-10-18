@@ -66,100 +66,98 @@ int main(char argc, char** argv)
 
     time_t time_start = clock();
 
-	while(!feof(fp)){
-		if(fgets(str, sizeof(str), fp) != NULL){
+	while(!feof(fp))
+    {
+		if(fgets(str, sizeof(str), fp) != NULL)
+        {
 			count++;
 
-            // open file
-            if(count % 200 == 0){
-                while(1){
-                    if ((key_file = fopen("./show2.txt", "w+")) == NULL){
-                        printf("error open show2.txt\n");
-                        fclose(key_file);
-                        continue;
-                    }
-                    break;
-                }
-                fprintf(key_file, "%ld\n", count);
-                fflush(key_file);
-                fclose(key_file);
-            }
+                                                                            // open file
+                                                                            if(count % 200 == 0){
+                                                                                while(1){
+                                                                                    if ((key_file = fopen("./show2.txt", "w+")) == NULL){
+                                                                                        printf("error open show2.txt\n");
+                                                                                        fclose(key_file);
+                                                                                        continue;
+                                                                                    }
+                                                                                    break;
+                                                                                }
+                                                                                fprintf(key_file, "%ld\n", count);
+                                                                                fflush(key_file);
+                                                                                fclose(key_file);
+                                                                            }
 
+            str[strlen(str)-2] = '\0';// 去掉回车换行
+            if (1 == wpa2break_is_password(&t_handshake,(uint8_t*)str, strlen(str)))
+            {
+                printf("count = %ld\n", count);
+                printf("KEY FOUND! [ %s ]\n", str);
 
+                                                                        // open file
+                                                                        while(1){
+                                                                            if ((key_file = fopen("./key.txt", "w+")) == NULL){
+                                                                                printf("error open key.txt\n");
+                                                                                fclose(key_file);
+                                                                                continue;
+                                                                            }
+                                                                            break;
+                                                                        }
+                                                                        fprintf(key_file, "%ld\n", count);
+                                                                        fprintf(key_file, "success\n");
+                                                                        fprintf(key_file, "%s", str);
+                                                                        fflush(key_file);
+                                                                        fclose(key_file);	
+                                                                        
 
-			str[strlen(str)-2] = '\0';
-			if (1 == wpa2break_is_password(&t_handshake,(uint8_t*)str, strlen(str))){
-				printf("count = %ld\n", count);
-				printf("KEY FOUND! [ %s ]\n", str);
-
-                // open file
-                while(1){
-                    if ((key_file = fopen("./key.txt", "w+")) == NULL){
-                        printf("error open key.txt\n");
-                        fclose(key_file);
-                        continue;
-                    }
-                    break;
-                }
-                fprintf(key_file, "%ld\n", count);
-                fprintf(key_file, "success\n");
-                fprintf(key_file, "%s", str);
-                fflush(key_file);
-                fclose(key_file);	
-                printf("\n%lf second\n", (clock() - time_start) * 1.0 / CLOCKS_PER_SEC);        
-
-                
-                // open file
-                while(1){
-                    if ((key_file = fopen("./show2.txt", "w+")) == NULL){
-                        printf("error open show2.txt\n");
-                        fclose(key_file);
-                        continue;
-                    }
-                    break;
-                }
-                fprintf(key_file, "%ld\n", count);
-                fflush(key_file);
-                fclose(key_file);                           
-
+                                                                        
+                                                                        // open file
+                                                                        while(1){
+                                                                            if ((key_file = fopen("./show2.txt", "w+")) == NULL){
+                                                                                printf("error open show2.txt\n");
+                                                                                fclose(key_file);
+                                                                                continue;
+                                                                            }
+                                                                            break;
+                                                                        }
+                                                                        fprintf(key_file, "%ld\n", count);
+                                                                        fflush(key_file);
+                                                                        fclose(key_file);                           
+                printf("\n%lf second\n", (clock() - time_start) * 1.0 / CLOCKS_PER_SEC);     
 				return 0;	
 			}
-			
-
 		}
-			
 	}
     printf("count = %ld\n", count);
 	printf("KEY NOT FOUND!\n");
 
 
-    // open file
-    while(1){
-        if ((key_file = fopen("./key.txt", "w+")) == NULL){
-            printf("error open key.txt\n");
-            fclose(key_file);
-            continue;
-        }
-        break;
-    }
-    fprintf(key_file, "%ld\n", count);
-    fprintf(key_file, "failed");
-    fflush(key_file);
-    fclose(key_file);	 
-    printf("\n%lf second\n", (clock() - time_start) * 1.0 / CLOCKS_PER_SEC);   
+                                                                        // open file
+                                                                        while(1){
+                                                                            if ((key_file = fopen("./key.txt", "w+")) == NULL){
+                                                                                printf("error open key.txt\n");
+                                                                                fclose(key_file);
+                                                                                continue;
+                                                                            }
+                                                                            break;
+                                                                        }
+                                                                        fprintf(key_file, "%ld\n", count);
+                                                                        fprintf(key_file, "failed");
+                                                                        fflush(key_file);
+                                                                        fclose(key_file);	 
+                                                                        printf("\n%lf second\n", (clock() - time_start) * 1.0 / CLOCKS_PER_SEC);   
 
-    // open file
-    while(1){
-        if ((key_file = fopen("./show2.txt", "w+")) == NULL){
-            printf("error open show2.txt\n");
-            fclose(key_file);
-            continue;
-        }
-        break;
-    }
-    fprintf(key_file, "%ld\n", count);
-    fflush(key_file);
-    fclose(key_file);   
+                                                                        // open file
+                                                                        while(1){
+                                                                            if ((key_file = fopen("./show2.txt", "w+")) == NULL){
+                                                                                printf("error open show2.txt\n");
+                                                                                fclose(key_file);
+                                                                                continue;
+                                                                            }
+                                                                            break;
+                                                                        }
+                                                                        fprintf(key_file, "%ld\n", count);
+                                                                        fflush(key_file);
+                                                                        fclose(key_file);   
      
     return 0;
 }
