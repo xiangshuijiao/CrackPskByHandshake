@@ -71,7 +71,10 @@ int main(char argc, char** argv)
 
                     fgets(t_buffer,sizeof(t_buffer),t_file);
                     memcpy(ssid, t_buffer, sizeof(ssid));
-                    ssid[strlen(ssid)-2] = '\0';// 去掉回车换行
+                    if (ssid[strlen(ssid)-1] == '\n')
+                        ssid[strlen(ssid)-1] = '\0';// 去掉回车换行
+                    if (ssid[strlen(ssid)] == '\n')
+                        ssid[strlen(ssid)] = '\0';// 去掉回车换行
                     wpa2break_init_mid_value(&t_handshake);
 
 
