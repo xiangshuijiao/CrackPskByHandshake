@@ -22,15 +22,29 @@ static void hex2bin(char* p_hex,uint8_t* p_bin)
         p_bin[t_i]=hex2dig(p_hex[2*t_i])*16+hex2dig(p_hex[2*t_i+1]);
 }
 
-int main(char argc, char** argv)
+int test()
 {
-    if(argc < 2)
-    {
-        fprintf(stderr, "please input dictionary file!!!\n");
-        return -1;
-    }
+    return 213;
+}
+int break_main(char* argv);
+int main()
+{
+
+    break_main("/root/桌面/jkn/wificrack/wpa-dictionary/common.txt");
+    return  0;
+}
+
+int break_main(char* argv)// argv 指向字典文件
+{
+    // if(argc < 2)
+    // {
+    //     fprintf(stderr, "please input dictionary file!!!\n");
+    //     return -1;
+    // }
+    // return 7777;
     
     bool find_passwd = false;
+    long count = 0;
     
     FILE* t_file=fopen("handshake.txt","r");
     while(!feof(t_file))
@@ -45,11 +59,18 @@ int main(char argc, char** argv)
                     char t_buffer[1024];
                     char ssid[1024];
                     memset(t_buffer, 0, sizeof(t_buffer));
+                    int i;
 
                     fgets(t_buffer,sizeof(t_buffer),t_file);                    
-                    if(strlen(t_buffer) < 3) break;// 只有回车换行则退出
+                    if(strlen(t_buffer) < 3) break;// 只有回车换行则退出                    
                     hex2bin(t_buffer,t_handshake.ssid);
-                    t_handshake.ssid_len=strlen((char*)t_handshake.ssid);
+                    t_handshake.ssid_len=strlen(t_buffer)/2;
+                    // test======================================================
+                    printf("fgets(t_buffer,sizeof(t_buffer),t_file) = ");
+                    printf("%s", t_buffer);
+                    printf("strlen(t_buffer)/2 = %d\n", strlen(t_buffer)/2);
+                    printf("t_handshake.ssid_len = %d", t_handshake.ssid_len);
+                    printf("\n");
 
                     fgets(t_buffer,sizeof(t_buffer),t_file);                  
                     hex2bin(t_buffer,t_handshake.ap_mac);
@@ -77,14 +98,57 @@ int main(char argc, char** argv)
                         ssid[strlen(ssid)] = '\0';// 去掉回车换行
                     wpa2break_init_mid_value(&t_handshake);
 
+                    // 打印读取的握手数据
+                    printf("t_handshake.ssid = ");
+                    for (i = 0; i < t_handshake.ssid_len; i++)
+                    {
+                        printf("%x", t_handshake.ssid[i]);
+                    }
+                    printf("\n");
+
+                    printf("t_handshake.ap_mac = ");
+                    for (i = 0; i < 6; i++)
+                    {
+                        printf("%x", t_handshake.ap_mac[i]);
+                    }
+                    printf("\n");
+
+                    printf("t_handshake.sta_mac = ");
+                    for (i = 0; i < 6; i++)
+                    {
+                        printf("%x", t_handshake.sta_mac[i]);
+                    }
+                    printf("\n");
+
+                    printf("t_handshake.ap_nonce = ");
+                    for (i = 0; i < 32; i++)
+                    {
+                        printf("%x", t_handshake.ap_nonce[i]);
+                    }
+                    printf("\n");
+
+                    printf("t_handshake.sta_nonce = ");
+                    for (i = 0; i < 32; i++)
+                    {
+                        printf("%x", t_handshake.sta_nonce[i]);
+                    }
+                    printf("\n");
+
+                    printf("t_handshake.step2_mic = ");
+                    for (i = 0; i < 16; i++)
+                    {
+                        printf("%x", t_handshake.step2_mic[i]);
+                    }
+                    printf("\n");
+
 
 
                     FILE *fp;
                     FILE *key_file;
                     char str[256];
-                    long count = 0;
-                    if((fp=fopen(argv[1], "r")) == NULL){
-                        printf("cannot open file %s\n", argv[1]);
+                    
+                    if((fp=fopen(argv, "r")) == NULL){
+                        printf("cannot open file %s\n", argv);
                         exit(1);
                     }
 
@@ -149,7 +213,7 @@ int main(char argc, char** argv)
                                
                                 find_passwd = true;  
                                 break;  
-                                // return 0;	
+                                	
                             }
                         }
                     }
@@ -188,7 +252,8 @@ int main(char argc, char** argv)
                     }
                     
                     printf("\n%lf second\n", (clock() - time_start) * 1.0 / CLOCKS_PER_SEC);  
-                    // return 0;
+                    
     }
     fclose(t_file);
+    return count;
 }
