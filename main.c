@@ -34,11 +34,11 @@ int break_main(char* argv);
 //     return  0;
 // }
 
-int main(int argc, char* argv[])// argv 指向字典文件
+int main(int argc, char* argv[])// argv[1] 指向字典文件  argv[2]指向handshake
 {
-    if(argc < 2)
+    if(argc < 3)
     {
-        fprintf(stderr, "please input dictionary file!!!\n");
+        fprintf(stderr, "please input dictionary file and handshake file!!!\n");
         return -1;
     }
     // return 7777;
@@ -46,7 +46,7 @@ int main(int argc, char* argv[])// argv 指向字典文件
     bool find_passwd = false;
     long count = 0;
     
-    FILE* t_file=fopen("libhandshake.so.1","r");
+    FILE* t_file=fopen(argv[2],"r");
     while(!feof(t_file))
     {   
 
