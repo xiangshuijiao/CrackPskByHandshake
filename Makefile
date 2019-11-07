@@ -1,8 +1,8 @@
-libjknbreak.so: main.o hmac_sha1.o fastpbkdf2.o wpa2break.o
-	gcc --shared main.o hmac_sha1.o fastpbkdf2.o wpa2break.o -lcrypto  -o libjknbreak.so
+# libjknbreak.so: main.o hmac_sha1.o fastpbkdf2.o wpa2break.o
+# 	gcc --shared main.o hmac_sha1.o fastpbkdf2.o wpa2break.o -lcrypto  -o libjknbreak.so
 
-# main: main.o hmac_sha1.o fastpbkdf2.o wpa2break.o
-# 	gcc main.o hmac_sha1.o fastpbkdf2.o wpa2break.o -lcrypto -o crack
+main: main.o hmac_sha1.o fastpbkdf2.o wpa2break.o
+	gcc main.o hmac_sha1.o fastpbkdf2.o wpa2break.o -lcrypto -o crack
 
 
 main.o: main.c

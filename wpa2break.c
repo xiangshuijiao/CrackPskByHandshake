@@ -16,6 +16,23 @@ static void mem_min_max(uint8_t** p_min,uint8_t** p_max,uint8_t p_len)
     }
 }
 
+static int hex2dig(char p_hex)
+{
+    if('0'<=p_hex&&p_hex<='9')
+        return p_hex-'0';
+    if('a'<=p_hex&&p_hex<='f')
+        return p_hex-'a'+10;
+    return 0;
+}
+
+static void hex2bin(char* p_hex,uint8_t* p_bin)
+{
+    int t_len=strlen(p_hex)/2;
+    int t_i;
+    for(t_i=0;t_i<t_len;t_i++)
+        p_bin[t_i]=hex2dig(p_hex[2*t_i])*16+hex2dig(p_hex[2*t_i+1]);
+}
+
 void wpa2break_init_mid_value(wpa2_handshake_t* p_handshake)
 {
     uint8_t* t_ptk_data=p_handshake->mid_value.ptk_data;
@@ -36,28 +53,38 @@ void wpa2break_init_mid_value(wpa2_handshake_t* p_handshake)
 
 int wpa2break_is_password(wpa2_handshake_t* p_handshake,uint8_t* p_password,uint8_t p_len)
 {
-    uint8_t t_psk[WPA2_PSK_LEN];
-    fastpbkdf2_hmac_sha1(p_password,p_len,p_handshake->ssid,p_handshake->ssid_len,WPA2_PBKDF2_LOOP,t_psk,WPA2_PSK_LEN);
-    //******************************************8
     int i;
-    printf("p_password = ");
-    for (i = 0; i < p_len; i++)
+    uint8_t t_psk[WPA2_PSK_LEN];
+    if (p_len < 64)
     {
-        printf("%x", p_password[i]);
+        fastpbkdf2_hmac_sha1(p_password,p_len,p_handshake->ssid,p_handshake->ssid_len,WPA2_PBKDF2_LOOP,t_psk,WPA2_PSK_LEN);
+        //******************************************8
+        
+        printf("p_password = ");
+        for (i = 0; i < p_len; i++)
+        {
+            printf("%x", p_password[i]);
+        }
+        printf("\n");
+        printf("ssid = ");
+        for (i = 0; i < p_handshake->ssid_len; i++)
+        {
+            printf("%x", p_handshake->ssid[i]);
+        }
+        printf("\n");
+        printf("PMK = ");
+        for (i = 0; i < WPA2_PSK_LEN; i++)
+        {
+            printf("%x", t_psk[i]);
+        }
+        printf("\n");
     }
-    printf("\n");
-    printf("ssid = ");
-    for (i = 0; i < p_handshake->ssid_len; i++)
+    else
     {
-        printf("%x", p_handshake->ssid[i]);
+        hex2bin(p_password,t_psk);
     }
-    printf("\n");
-    printf("PMK = ");
-    for (i = 0; i < WPA2_PSK_LEN; i++)
-    {
-        printf("%x", t_psk[i]);
-    }
-    printf("\n");
+    
+
 
 
     uint8_t t_ptk[WPA2_PTK_LEN];

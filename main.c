@@ -27,20 +27,20 @@ int test()
     return 213;
 }
 int break_main(char* argv);
-int main()
-{
+// int main()
+// {
 
-    break_main("/root/桌面/jkn/wificrack/wpa-dictionary/common.txt");
-    return  0;
-}
+//     break_main("/root/桌面/jkn/wificrack/wpa-dictionary/common.txt");
+//     return  0;
+// }
 
-int break_main(char* argv)// argv 指向字典文件
+int main(int argc, char* argv[])// argv 指向字典文件
 {
-    // if(argc < 2)
-    // {
-    //     fprintf(stderr, "please input dictionary file!!!\n");
-    //     return -1;
-    // }
+    if(argc < 2)
+    {
+        fprintf(stderr, "please input dictionary file!!!\n");
+        return -1;
+    }
     // return 7777;
     
     bool find_passwd = false;
@@ -147,8 +147,8 @@ int break_main(char* argv)// argv 指向字典文件
                     FILE *key_file;
                     char str[256];
                     
-                    if((fp=fopen(argv, "r")) == NULL){
-                        printf("cannot open file %s\n", argv);
+                    if((fp=fopen(argv[1], "r")) == NULL){
+                        printf("cannot open file %s\n", argv[1]);
                         exit(1);
                     }
 
