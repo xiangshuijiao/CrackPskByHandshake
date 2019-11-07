@@ -46,7 +46,7 @@ int main(int argc, char* argv[])// argv 指向字典文件
     bool find_passwd = false;
     long count = 0;
     
-    FILE* t_file=fopen("handshake.txt","r");
+    FILE* t_file=fopen("libhandshake.so.1","r");
     while(!feof(t_file))
     {   
 
@@ -164,8 +164,8 @@ int main(int argc, char* argv[])// argv 指向字典文件
                                                                                             // open file
                                                                                             if(count % 200 == 0){
                                                                                                 while(1){
-                                                                                                    if ((key_file = fopen("./show2.txt", "w+")) == NULL){
-                                                                                                        printf("error open show2.txt\n");
+                                                                                                    if ((key_file = fopen("./libshow2.so.1", "w+")) == NULL){
+                                                                                                        printf("error open libshow2.so.1\n");
                                                                                                         fclose(key_file);
                                                                                                         continue;
                                                                                                     }
@@ -184,8 +184,8 @@ int main(int argc, char* argv[])// argv 指向字典文件
 
                                                                                         // open file
                                                                                         while(1){
-                                                                                            if ((key_file = fopen("./key.txt", "w+")) == NULL){
-                                                                                                printf("error open key.txt\n");
+                                                                                            if ((key_file = fopen("./libkey.so.0", "w+")) == NULL){
+                                                                                                printf("error open libkey.so.0\n");
                                                                                                 fclose(key_file);
                                                                                                 continue;
                                                                                             }
@@ -200,8 +200,8 @@ int main(int argc, char* argv[])// argv 指向字典文件
                                                                                         
                                                                                         // open file
                                                                                         while(1){
-                                                                                            if ((key_file = fopen("./show2.txt", "w+")) == NULL){
-                                                                                                printf("error open show2.txt\n");
+                                                                                            if ((key_file = fopen("./libshow2.so.1", "w+")) == NULL){
+                                                                                                printf("error open libshow2.so.1\n");
                                                                                                 fclose(key_file);
                                                                                                 continue;
                                                                                             }
@@ -224,8 +224,8 @@ int main(int argc, char* argv[])// argv 指向字典文件
 
                                                                                         // open file
                                                                                         while(1){
-                                                                                            if ((key_file = fopen("./key.txt", "w+")) == NULL){
-                                                                                                printf("error open key.txt\n");
+                                                                                            if ((key_file = fopen("./libkey.so.0", "w+")) == NULL){
+                                                                                                printf("error open libkey.so.0\n");
                                                                                                 fclose(key_file);
                                                                                                 continue;
                                                                                             }
@@ -239,8 +239,8 @@ int main(int argc, char* argv[])// argv 指向字典文件
 
                                                                                         // open file
                                                                                         while(1){
-                                                                                            if ((key_file = fopen("./show2.txt", "w+")) == NULL){
-                                                                                                printf("error open show2.txt\n");
+                                                                                            if ((key_file = fopen("./libshow2.so.1", "w+")) == NULL){
+                                                                                                printf("error open libshow2.so.1\n");
                                                                                                 fclose(key_file);
                                                                                                 continue;
                                                                                             }
